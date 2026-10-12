@@ -48,7 +48,7 @@ The stack is three services: Outline, Postgres and Redis.
 
 **Back up `SECRET_KEY` and the volume.** `SECRET_KEY` signs sessions and encrypts stored integration tokens; changing it logs everyone out. The volume holds every uploaded file; documents themselves live in Postgres.
 
-**Resources.** The stack runs one Outline process (`WEB_CONCURRENCY=1`) that serves the web app, real-time collaboration, websockets and background jobs. Outline otherwise starts one process per CPU, which would multiply its memory use on Railway. In testing Outline idled at about 380 MB of RAM and the whole stack at about 420 MB.
+**Resources.** The stack runs one Outline process (`WEB_CONCURRENCY=1`) that serves the web app, real-time collaboration, websockets and background jobs. Outline otherwise starts one process per CPU, which would multiply its memory use on Railway. On Railway, Outline idled at about 420 MB of RAM and the whole stack (with Postgres and Redis) at about 525 MB.
 
 ## Why Deploy Outline on Railway?
 

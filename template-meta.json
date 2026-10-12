@@ -5,5 +5,6 @@
   "category": "Other",
   "image": "https://raw.githubusercontent.com/nomideusz/outline-railway/main/icon.svg",
   "card_desc": "Outline: the fast, collaborative team wiki and knowledge base. Ready on first boot: create your workspace and sign in with a passkey, then add SSO or SMTP for teammates.",
-  "deploy_marker": "outlinewiki/outline:1.10.1"
+  "deploy_marker": "outlinewiki/outline:1.10.1",
+  "id": "d69bf95e-bf43-4eef-a9dc-09c11ddc16f7"
 }
