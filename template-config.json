@@ -1,0 +1,228 @@
+{
+  "services": {
+    "351b1918-e84f-4d4f-868e-d1a7d9095965": {
+      "icon": "https://raw.githubusercontent.com/nomideusz/outline-railway/main/icon.svg",
+      "name": "Outline",
+      "build": {},
+      "deploy": {
+        "startCommand": null,
+        "healthcheckPath": "/_health",
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "image": "outlinewiki/outline:1.10.1"
+      },
+      "networking": {
+        "serviceDomains": {
+          "<hasDomain>": {}
+        }
+      },
+      "volumeMounts": {
+        "0a8c976f-dd0c-4edd-9c4c-f4904d915d1c": {
+          "mountPath": "/var/lib/outline/data"
+        }
+      },
+      "variables": {
+        "PORT": {
+          "defaultValue": "3000",
+          "description": "Port Outline listens on - leave as is",
+          "isOptional": false
+        },
+        "URL": {
+          "defaultValue": "https://${{RAILWAY_PUBLIC_DOMAIN}}",
+          "description": "Public URL of Outline (links, emails, sign-in callbacks, passkeys) - set it to your custom domain after adding one",
+          "isOptional": false
+        },
+        "SECRET_KEY": {
+          "defaultValue": "${{secret(64, \"0123456789abcdef\")}}",
+          "description": "Signs sessions and encrypts stored integration secrets (64 hex chars). BACK IT UP - changing it logs everyone out",
+          "isOptional": false
+        },
+        "UTILS_SECRET": {
+          "defaultValue": "${{secret(64, \"0123456789abcdef\")}}",
+          "description": "Protects Outline's internal cron/utility endpoints",
+          "isOptional": false
+        },
+        "DATABASE_URL": {
+          "defaultValue": "postgres://${{Postgres.POSTGRES_USER}}:${{Postgres.POSTGRES_PASSWORD}}@${{Postgres.RAILWAY_PRIVATE_DOMAIN}}:5432/${{Postgres.POSTGRES_DB}}",
+          "description": "Postgres on the private network",
+          "isOptional": false
+        },
+        "PGSSLMODE": {
+          "defaultValue": "disable",
+          "description": "Postgres is reached over Railway's private network, which is already encrypted",
+          "isOptional": false
+        },
+        "REDIS_URL": {
+          "defaultValue": "redis://default:${{Redis.REDIS_PASSWORD}}@${{Redis.RAILWAY_PRIVATE_DOMAIN}}:6379?family=0",
+          "description": "Redis on the private network (family=0 lets it connect over IPv6)",
+          "isOptional": false
+        },
+        "FILE_STORAGE": {
+          "defaultValue": "local",
+          "description": "Uploads and attachments are stored on the volume",
+          "isOptional": false
+        },
+        "FILE_STORAGE_LOCAL_ROOT_DIR": {
+          "defaultValue": "/var/lib/outline/data",
+          "description": "Where the volume is mounted - leave as is",
+          "isOptional": false
+        },
+        "RAILWAY_RUN_UID": {
+          "defaultValue": "0",
+          "description": "Run as root so Outline can write to the root-owned Railway volume",
+          "isOptional": false
+        },
+        "WEB_CONCURRENCY": {
+          "defaultValue": "1",
+          "description": "Number of web processes. Outline otherwise starts one per CPU; raise it only with more RAM",
+          "isOptional": false
+        },
+        "RAILWAY_HEALTHCHECK_TIMEOUT_SEC": {
+          "defaultValue": "600",
+          "description": "First boot runs the database migrations before the health check can pass",
+          "isOptional": false
+        },
+        "SMTP_HOST": {
+          "defaultValue": "",
+          "description": "Optional SMTP server: enables email sign-in links, invitations and notifications (Railway allows outbound SMTP on Pro only)",
+          "isOptional": true
+        },
+        "SMTP_PORT": {
+          "defaultValue": "465",
+          "description": "SMTP port",
+          "isOptional": true
+        },
+        "SMTP_SECURE": {
+          "defaultValue": "true",
+          "description": "true for implicit TLS (port 465), false for STARTTLS (587)",
+          "isOptional": true
+        },
+        "SMTP_USERNAME": {
+          "defaultValue": "",
+          "description": "SMTP username",
+          "isOptional": true
+        },
+        "SMTP_PASSWORD": {
+          "defaultValue": "",
+          "description": "SMTP password",
+          "isOptional": true
+        },
+        "SMTP_FROM_EMAIL": {
+          "defaultValue": "",
+          "description": "Sender, e.g. Outline <wiki@example.com>",
+          "isOptional": true
+        },
+        "OIDC_CLIENT_ID": {
+          "defaultValue": "",
+          "description": "Optional single sign-on with any OpenID Connect provider (Authentik, Keycloak, Authelia, Zitadel, Okta...): client ID",
+          "isOptional": true
+        },
+        "OIDC_CLIENT_SECRET": {
+          "defaultValue": "",
+          "description": "OpenID Connect client secret",
+          "isOptional": true
+        },
+        "OIDC_ISSUER_URL": {
+          "defaultValue": "",
+          "description": "OpenID Connect issuer URL; endpoints are discovered from /.well-known/openid-configuration. Redirect URI: <URL>/auth/oidc.callback",
+          "isOptional": true
+        },
+        "OIDC_DISPLAY_NAME": {
+          "defaultValue": "OpenID Connect",
+          "description": "Label on the sign-in button",
+          "isOptional": true
+        },
+        "GOOGLE_CLIENT_ID": {
+          "defaultValue": "",
+          "description": "Optional Google sign-in: OAuth client ID. Redirect URI: <URL>/auth/google.callback",
+          "isOptional": true
+        },
+        "GOOGLE_CLIENT_SECRET": {
+          "defaultValue": "",
+          "description": "Google OAuth client secret",
+          "isOptional": true
+        }
+      }
+    },
+    "c4c1abe8-d714-4189-9081-cbf9805313e2": {
+      "icon": "https://devicons.railway.app/i/postgresql.svg",
+      "name": "Postgres",
+      "build": {},
+      "deploy": {
+        "startCommand": null,
+        "healthcheckPath": null,
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "image": "postgres:17.11-alpine"
+      },
+      "networking": {
+        "serviceDomains": {}
+      },
+      "volumeMounts": {
+        "4a042edd-8d4e-4d05-9cd8-10bebe42ee7b": {
+          "mountPath": "/var/lib/postgresql/data"
+        }
+      },
+      "variables": {
+        "POSTGRES_DB": {
+          "defaultValue": "outline",
+          "description": "Database name",
+          "isOptional": false
+        },
+        "POSTGRES_USER": {
+          "defaultValue": "outline",
+          "description": "Database user",
+          "isOptional": false
+        },
+        "POSTGRES_PASSWORD": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Auto-generated database password",
+          "isOptional": false
+        },
+        "PGDATA": {
+          "defaultValue": "/var/lib/postgresql/data/pgdata",
+          "description": "Data subdirectory - keeps Postgres happy on Railway volumes",
+          "isOptional": false
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "defaultValue": "60",
+          "description": "Time for Postgres to shut down cleanly on redeploy",
+          "isOptional": false
+        }
+      }
+    },
+    "011aed56-7c7a-4cc2-95c4-195db9cbf48e": {
+      "icon": "https://devicons.railway.app/i/redis.svg",
+      "name": "Redis",
+      "build": {},
+      "deploy": {
+        "startCommand": "/bin/sh -c \"chown -R redis:redis /data && exec docker-entrypoint.sh redis-server --requirepass $REDIS_PASSWORD --appendonly yes\"",
+        "healthcheckPath": null,
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "image": "redis:8.10.2-alpine"
+      },
+      "networking": {
+        "serviceDomains": {}
+      },
+      "volumeMounts": {
+        "5307e0e4-ef90-4b49-b26f-0d489a0fef45": {
+          "mountPath": "/data"
+        }
+      },
+      "variables": {
+        "REDIS_PASSWORD": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Auto-generated Redis password",
+          "isOptional": false
+        }
+      }
+    }
+  }
+}
