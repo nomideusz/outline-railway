@@ -3,7 +3,7 @@
   "short_name": "Outline Production",
   "description": "Team wiki with real-time editing. Sign in with a passkey, no SSO needed",
   "category": "Other",
-  "image": "https://raw.githubusercontent.com/nomideusz/outline-railway/main/icon.svg",
+  "image": "https://raw.githubusercontent.com/two-workspaces/outline/main/icon.svg",
   "card_desc": "Outline: the fast, collaborative team wiki and knowledge base. Ready on first boot: create your workspace and sign in with a passkey, then add SSO or SMTP for teammates.",
   "deploy_marker": "outlinewiki/outline:1.10.1",
   "id": "d69bf95e-bf43-4eef-a9dc-09c11ddc16f7",

@@ -1,7 +1,7 @@
 {
   "services": {
     "351b1918-e84f-4d4f-868e-d1a7d9095965": {
-      "icon": "https://raw.githubusercontent.com/nomideusz/outline-railway/main/icon.svg",
+      "icon": "https://raw.githubusercontent.com/two-workspaces/outline/main/icon.svg",
       "name": "Outline",
       "build": {},
       "deploy": {

@@ -30,7 +30,7 @@ The stack is three services: Outline, Postgres and Redis.
 
 - [Outline self-hosting documentation](https://docs.getoutline.com/s/hosting)
 - [Outline on GitHub](https://github.com/outline/outline)
-- [Template source on GitHub](https://github.com/nomideusz/outline-railway)
+- [Template source on GitHub](https://github.com/two-workspaces/outline)
 
 ### Implementation Details
 
