@@ -9,7 +9,7 @@
 The stack is three services: Outline, Postgres and Redis.
 
 - **Usable on first boot.** Outline normally refuses to let anyone in until you connect Slack, Google, Microsoft or an OIDC provider, or an SMTP server for magic links. This template uses Outline's built-in first-run setup instead: open the URL, create the workspace and admin account, then add a passkey (Face ID, Touch ID, Windows Hello, a password manager or a security key) and sign in with it from then on. SSO or email, which teammates need for their first sign-in, are optional variables you can fill in later.
-- **Upstream's own image, pinned.** Outline runs from the official `outlinewiki/outline` image at a fixed release tag (1.10.1), not `latest`, so a redeploy never surprises you with an untested version.
+- **Upstream's own image, pinned.** Outline runs from the official `outlinewiki/outline` image at a fixed release tag (1.12.0), not `latest`, so a redeploy never surprises you with an untested version.
 - **Upgrades that migrate themselves.** Outline runs its database migrations on every boot (guarded by a lock), and Railway's health check on `/_health`, which checks both Postgres and Redis, only switches traffic once they finish. Upgrading is bumping the image tag.
 - **Uploads on a volume.** Images and attachments are stored on a persistent volume at `/var/lib/outline/data` and served through Outline itself, so there is no bucket or CORS to configure.
 - **Generated secrets.** `SECRET_KEY` and `UTILS_SECRET` are generated as 64-character hex strings at deploy time. Postgres and Redis get their own generated passwords and are reachable only on the private network.
