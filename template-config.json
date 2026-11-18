@@ -11,7 +11,7 @@
         "restartPolicyMaxRetries": 10
       },
       "source": {
-        "image": "outlinewiki/outline:1.12.0"
+        "image": "outlinewiki/outline:1.13.0"
       },
       "networking": {
         "serviceDomains": {
